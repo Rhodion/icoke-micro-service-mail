@@ -1,12 +1,37 @@
-import { CreateCreateRouteDto } from './../create-routes/dto/create-create-route.dto';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 // import http from 'http';
 // import https from 'https';
 
+export class CriarPedidoVenda {
+  piclist_id: number;
+  EMPRESA: string;
+  COD_CLIENTE: string;
+  CONDICAO_PAGMTO: string;
+  ORG_VENDAS: string;
+  CANAL_DIST: string;
+  SETOR_ATV: string;
+  CENTRO: string;
+  TIPO_DOC: string;
+  TABELA_PRECO: string;
+  NOME_CLIENTE: string;
+  CPF: string;
+  CNPJ: string;
+  AUT: string;
+  NSU: string;
+  BAND: string;
+  PRODUTOS: string;
+  DEPOSITO: string;
+  DEPOSITO_DEST: string;
+  P_PAR_MAC: string;
+  P_STOP_OV: string;
+  ENDERECO: string;
+  P_REF_DOC: string;
+}
+
 @Injectable()
 export class SapCriarPedidoVenda {
-  handle(createSapPedidoVendaDto: CreateCreateRouteDto) {
+  handle(createSapPedidoVendaDto: CriarPedidoVenda) {
     return new Promise(async (resolve, reject) => {
       try {
         const url = `${process.env.SAP_HOST}/sapw2/ecommerce.asmx?op=CRIAR_PEDIDO_VENDA3`;
