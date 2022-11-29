@@ -17,7 +17,7 @@ async function bootstrap() {
           process.env.KAFKA_PASSWORD,
         ),
         consumer: {
-          groupId: 'jobs-icoke',
+          groupId: 'icoke-ms-mail-main',
         },
       },
     },
