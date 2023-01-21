@@ -75,10 +75,16 @@ export class MailService {
       .toString('utf8');
     const template = Handlebars.compile(templateStr, { noEscape: true });
 
+    const piclists = [
+      { name: 'teste1', qtd: '01' },
+      { name: 'teste2', qtd: '02' },
+    ];
+
     // const html = template({ name, randomstring });
-    const html = template({});
+    const html = template({ piclists });
 
     const mail = {
+      // to: 'alvesroriz@gmail.com',
       to: 'rhodions@gmail.com',
       // to: user.email,
       subject: `GEBRA12345 - Resumo de Abastecimento 30/10`,

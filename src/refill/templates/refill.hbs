@@ -81,7 +81,7 @@
                   cellpadding='0'
                   cellspacing='0'
                   role='presentation'
-                  style='box-sizing:border-box;margin:30px auto;padding:0;text-align:center;width:100%'
+                  style='box-sizing:border-box;margin:auto auto 30px auto;padding:0;text-align:center;width:100%'
                 >
                   <tbody>
                     <tr>
@@ -94,29 +94,143 @@
                           role='presentation'
                           style='box-sizing:border-box'
                         >
+                          <thead>
+                            <tr>
+                              <td
+                                align='left'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Produto
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Quantidade
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each piclists}}
+                              <tr>
+                                <td
+                                  align='left'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.name}}
+                                </td>
+                                <td
+                                  align='center'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.qtd}}
+                                </td>
+                              </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:justify'
+                >
+                  Durante o abastecimento, foi retirado da geladeiras os
+                  produtos listados, por estarem próximo do vencimento e/ou com
+                  avarias ou poder não caber dentro da geladeira, no limite
+                  estabelecido para cada produto/marca/sabor.
+                </p>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:justify'
+                >
+                  Esses produtos serão reabastecidos nos próximos abastecimento,
+                  a depender da disponibilidade no estoque da Brasal. A retira
+                  desses produtos não são lançados como perdas.
+                </p>
+
+                <table
+                  align='center'
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  role='presentation'
+                  style='box-sizing:border-box;margin:auto auto 30px auto;padding:0;text-align:center;width:100%'
+                >
+                  <tbody>
+                    <tr>
+                      <td align='center' style='box-sizing:border-box'>
+                        <table
+                          width='100%'
+                          border='0'
+                          cellpadding='0'
+                          cellspacing='0'
+                          role='presentation'
+                          style='box-sizing:border-box'
+                        >
+                          <thead>
+                            <tr>
+                              <td
+                                align='left'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Produto
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Quantidade
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Valor
+                              </td>
+                            </tr>
+                          </thead>
                           <tbody>
                             <tr>
-                              <td align='center' style='box-sizing:border-box'>
-                                <table
-                                  border='0'
-                                  cellpadding='0'
-                                  cellspacing='0'
-                                  role='presentation'
-                                  style='box-sizing:border-box'
-                                >
-                                  <tbody>
-                                    <tr>
-                                      <td style='box-sizing:border-box'><a
-                                          href='https://desligamentofinanceiro.brasal.com.br/login'
-                                          rel='noopener'
-                                          style='box-sizing:border-box;border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748'
-                                          target='_blank'
-                                          data-saferedirecturl='https://www.google.com/url?q=https://desligamentofinanceiro.brasal.com.br/login&amp;source=gmail&amp;ust=1674324574345000&amp;usg=AOvVaw2E88akP0KuHgGPMwN3OMvp'
-                                        >Acesse aqui</a>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                              <td
+                                align='left'
+                                style='box-sizing:border-box;font-size:16px;'
+                              >
+                                Heineken LN
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;'
+                              >
+                                02
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;'
+                              >
+                                R$ 15,00
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                align='left'
+                                style='box-sizing:border-box;font-size:16px;'
+                              >
+                                Amstel Lata
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;'
+                              >
+                                01
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;'
+                              >
+                                R$ 30,00
                               </td>
                             </tr>
                           </tbody>
@@ -125,11 +239,19 @@
                     </tr>
                   </tbody>
                 </table>
+
                 <p
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
                 >
-                  Atenciosamente,<br />
-                  DesligamentoFinanceiro</p>
+                  Central de Atendimento<br />
+                  <b
+                    style='box-sizing:border-box;font-size:20px;'
+                  >0800-61-5000</b>
+                  <br />
+                  Segunda à Sexta de 07:30 às 19:00<br />
+                  Sábados: 08:00 às 14:00<br />
+                  exceto domingos e feriados
+                </p>
                 <table
                   width='100%'
                   cellpadding='0'
@@ -143,9 +265,8 @@
                         <p
                           style='box-sizing:border-box;line-height:1.5em;margin-top:0;text-align:left;font-size:14px'
                         >
-                          Se você estiver tendo problemas para clicar no botão
-                          "Acesse aqui", copie e cole o URL abaixo em seu
-                          navegador:
+                          Deseja parar de receber esse comunicado de
+                          abastecimento,
                           <span
                             style='box-sizing:border-box;word-break:break-all'
                           ><a
@@ -153,8 +274,7 @@
                               style='box-sizing:border-box;color:#3869d4'
                               target='_blank'
                               data-saferedirecturl='https://www.google.com/url?q=https://desligamentofinanceiro.brasal.com.br/login&amp;source=gmail&amp;ust=1674324574345000&amp;usg=AOvVaw2E88akP0KuHgGPMwN3OMvp'
-                            >https://<wbr />desligamentofinanceiro.brasal.<wbr
-                              />com.br/login</a></span></p>
+                            >clique aqui</a></span></p>
                       </td>
                     </tr>
                   </tbody>
