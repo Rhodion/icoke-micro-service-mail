@@ -3,12 +3,12 @@ import { SendgridService } from '../providers/sendgrid/sendgrid.service';
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MailController } from './mail.controller';
+import { RecoverPassController } from './mail.controller';
 import { MailService } from './mail.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MUser])],
-  controllers: [MailController],
+  controllers: [RecoverPassController],
   providers: [MailService, SendgridService],
 })
-export class MailModule {}
+export class RecoverPassModule {}

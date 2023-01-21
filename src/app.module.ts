@@ -1,3 +1,6 @@
+import { RefillModule } from './refill/mail.module';
+import { ValidateMailModule } from './validateMail/mail.module';
+import { RecoverPassModule } from './recoverPass/mail.module';
 import { AuditSapLog } from './entities/audit-sap-log.entity';
 import { MUser } from './entities/m-user.entity';
 import { OrderSapLog } from './entities/order-sap-log.entity';
@@ -11,7 +14,6 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { MailModule } from './mail/mail.module';
 import { GetMvfridgeMonitoringQuery } from './providers/get-mvfridge-monitoring-query';
 import { SapConsultaEcommerce } from './providers/sap-consulta-ecommerce';
 import { SapConsultaStatusPedidos } from './providers/sap-consulta-status-pedidos';
@@ -42,7 +44,9 @@ import { SendgridService } from './providers/sendgrid/sendgrid.service';
       ],
       synchronize: false,
     }),
-    MailModule,
+    RecoverPassModule,
+    ValidateMailModule,
+    RefillModule,
   ],
   controllers: [],
   providers: [
