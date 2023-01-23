@@ -10,6 +10,8 @@ import { Connection } from 'typeorm';
 import { MUser } from '../entities/m-user.entity';
 
 import { SendgridService } from '../providers/sendgrid/sendgrid.service';
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
 
 const fs = require('fs');
 const path = require('path');
@@ -26,75 +28,267 @@ export class MailService {
 
   async refill(refillDto: RefillDto) {
     console.log('refill', { refillDto });
-
-    const refillResult = await this.connection.query(`
+    try {
+      const refillResult = await this.connection.query(`
       SELECT
-        *
+        refills.id,
+        refills.product_return_done,
+        refills.finished_by,
+        refills.product_return_id,
+        IFNULL(syndic.name, "") AS syndic_name,
+        IFNULL(fridges.gebra, "") AS gebra,
+        IFNULL(fridges.local, "") AS local,
+        DATE_FORMAT(refills.finished_at, "%d/%m/%Y %H:%i") AS refill_at,
+        DATE_FORMAT(refills.finished_at, "%d/%m") AS refill_at_only_date,
+        IFNULL(deliveryman.name, "") AS deliveryman,
+        IFNULL(refills.name, "") AS delivery_escort,
+        IFNULL(piclists.nf, "") AS nf,
+        IFNULL(syndic.email, "") AS syndic_email
       FROM
-        refills
+        refills 
+      LEFT JOIN
+        fridges
+      ON
+        fridges.id = refills.fridge_id
+      LEFT JOIN
+        users AS syndic
+      ON
+        syndic.id = fridges.syndic_id
+      LEFT JOIN
+        users AS deliveryman
+      ON
+        deliveryman.id = refills.finished_by
+      LEFT JOIN
+        piclists
+      ON
+        piclists.id = refills.piclist_id
       WHERE
-        id = ${refillDto.refill_id}
+        refills.id = ${refillDto.refill_id}
     `);
 
-    if (!refillResult || refillResult.length === 0) {
-      console.log('no refill');
-      return;
+      if (!refillResult || refillResult.length === 0) {
+        console.log('no refill');
+        return;
+      }
+
+      const refill = refillResult[0];
+      // console.log({ refill });
+
+      if (!refill || !refill.id) {
+        console.log('no refill');
+        return;
+      }
+
+      if (refill.product_return_done == 0 || !refill.finished_by) {
+        console.log('not finished');
+        return this.connection.query(`
+        INSERT INTO
+          refill_condo_report_logs
+        VALUES
+          (
+            NULL,
+            ${refillDto.refill_id},
+            400,
+            "Abastecimento não finalizado",
+            "",
+            CURRENT_TIMESTAMP(),
+            CURRENT_TIMESTAMP()
+          )
+      `);
+      }
+
+      if (refill.syndic_name == '') {
+        console.log('not finished');
+        return this.connection.query(`
+        INSERT INTO
+          refill_condo_report_logs
+        VALUES
+          (
+            NULL,
+            ${refillDto.refill_id},
+            400,
+            "Síndico não cadastrado",
+            "",
+            CURRENT_TIMESTAMP(),
+            CURRENT_TIMESTAMP()
+          )
+      `);
+      }
+
+      if ((refill.syndic_email = '')) {
+        console.log('not finished');
+        return this.connection.query(`
+        INSERT INTO
+          refill_condo_report_logs
+        VALUES
+          (
+            NULL,
+            ${refillDto.refill_id},
+            400,
+            "Síndico sem e-mail cadastrado",
+            "",
+            CURRENT_TIMESTAMP(),
+            CURRENT_TIMESTAMP()
+          )
+      `);
+      }
+
+      // const syndic_name = 'Glayton';
+      // const gebra = 'GEBRA123451';
+      // const local = 'LIVERPOOL CERVEJA 1';
+      // const refill_at = '30/10/2022 10:25 1';
+      // const deliveryman = 'Glayton Roriz 1';
+      // const delivery_escort = 'Rhodion 1';
+      // const nf = 'xxxxxxx1';
+
+      const {
+        syndic_name,
+        gebra,
+        local,
+        refill_at,
+        deliveryman,
+        delivery_escort,
+        nf,
+        refill_at_only_date,
+      } = refill;
+
+      let piclists = [];
+      let productReturns = [];
+
+      piclists = await this.connection.query(`
+      SELECT
+        products.name AS name, 
+        piclist_products.qtd AS qtd
+      FROM
+        refills 
+      LEFT JOIN
+        piclists
+      ON
+        piclists.id = refills.piclist_id
+      LEFT JOIN
+        piclist_products
+      ON
+        piclist_products.piclist_id = piclists.id
+      LEFT JOIN
+        products
+      ON  
+        piclist_products.product_id = products.id
+      WHERE
+        refills.id = ${refillDto.refill_id}
+      ORDER BY
+        products.name ASC
+    `);
+
+      // piclists = [
+      //   { name: 'teste1', qtd: '01' },
+      //   { name: 'teste2', qtd: '02' },
+      // ];
+
+      if (refill.product_return_id) {
+        productReturns = await this.connection.query(`
+        SELECT
+          products.name AS name,
+          product_return_items.qtd AS qtd,
+          (
+            SELECT
+              CONCAT(
+                "R$ ", 
+                FORMAT(
+                  IFNULL(
+                    IF(products.only_pack = 0, sap_products.unit_price, sap_products.final_price), 
+                    0
+                  ), 2, "pt_BR"
+                )
+              )
+            FROM
+              sap_products
+            WHERE
+              sku = LPAD("3171", 18, "0")
+            AND
+              sap_products.table = 787
+            ORDER BY
+              id DESC
+            LIMIT 1
+          ) AS amount
+        FROM
+          refills 
+        JOIN
+          product_return_items
+        ON
+          product_return_items.id = refills.product_return_id
+        JOIN
+          products
+        ON
+          products.id = product_return_items.product_id
+        JOIN
+          fridges
+        ON
+          fridges.id = refills.fridge_id
+        WHERE
+          refills.id = ${refillDto.refill_id}
+      `);
+      }
+
+      const templateFile =
+        productReturns.length > 0 ? 'refill.hbs' : 'refill_no_returns.hbs';
+
+      const templateStr = fs
+        .readFileSync(path.resolve(__dirname, 'templates', templateFile))
+        .toString('utf8');
+      const template = Handlebars.compile(templateStr, { noEscape: true });
+
+      const html = template({
+        syndic_name,
+        gebra,
+        local,
+        refill_at,
+        deliveryman,
+        delivery_escort,
+        nf,
+        piclists,
+        productReturns,
+      });
+
+      const mail = {
+        // to: 'alvesroriz@gmail.com',
+        to: 'rhodions@gmail.com',
+        // to: refill.syndic_email,
+        subject: `${gebra} - Resumo de Abastecimento ${refill_at_only_date}`,
+        from: 'iCoke - Brasal Refrigerantes<no-reply@brasal.com.br>',
+        text: `Abastecimento`,
+        html,
+      };
+
+      await this.sendgridService.send(mail);
+      return this.connection.query(`
+        INSERT INTO
+          refill_condo_report_logs
+        VALUES
+          (
+            NULL,
+            ${refillDto.refill_id},
+            200,
+            "E-mail enviado com sucesso",
+            "",
+            CURRENT_TIMESTAMP(),
+            CURRENT_TIMESTAMP()
+          )
+      `);
+    } catch (error) {
+      return this.connection.query(`
+        INSERT INTO
+          refill_condo_report_logs
+        VALUES
+          (
+            NULL,
+            ${refillDto.refill_id},
+            200,
+            "E-mail enviado com sucesso",
+            "${JSON.stringify(error)}",
+            CURRENT_TIMESTAMP(),
+            CURRENT_TIMESTAMP()
+          )
+      `);
     }
-
-    const refill = refillResult[0];
-    console.log({ refill });
-
-    if (
-      !refill ||
-      !refill.id ||
-      !refill.product_return_id ||
-      refill.product_return_done == 0
-    ) {
-      console.log('no refill');
-      return;
-    }
-
-    // return;
-
-    // const user = await this.mUserRepository.findOneBy({
-    //   id: refillDto.refill_id,
-    // });
-
-    // if (!user || !user.email || user.email === '') {
-    //   return;
-    // }
-
-    // const { name } = user;
-    // const randomstring = Math.random().toString(32).slice(-6);
-    // const password_hash = await bcrypt.hash(randomstring, 8);
-
-    // await this.mUserRepository.save(Object.assign(user, { password_hash }));
-
-    const templateStr = fs
-      .readFileSync(path.resolve(__dirname, 'templates', 'refill.hbs'))
-      .toString('utf8');
-    const template = Handlebars.compile(templateStr, { noEscape: true });
-
-    const piclists = [
-      { name: 'teste1', qtd: '01' },
-      { name: 'teste2', qtd: '02' },
-    ];
-
-    // const html = template({ name, randomstring });
-    const html = template({ piclists });
-
-    const mail = {
-      // to: 'alvesroriz@gmail.com',
-      to: 'rhodions@gmail.com',
-      // to: user.email,
-      subject: `GEBRA12345 - Resumo de Abastecimento 30/10`,
-      from: 'iCoke - Brasal Refrigerantes<no-reply@brasal.com.br>',
-      text: `Sua nova senha é `,
-      html,
-    };
-
-    const result = await this.sendgridService.send(mail);
-    console.log({ result });
-    return;
   }
 }
