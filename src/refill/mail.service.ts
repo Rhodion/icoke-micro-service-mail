@@ -30,40 +30,41 @@ export class MailService {
     console.log('refill', { refillDto });
     try {
       const refillResult = await this.connection.query(`
-      SELECT
-        refills.id,
-        refills.product_return_done,
-        refills.finished_by,
-        refills.product_return_id,
-        IFNULL(syndic.name, "") AS syndic_name,
-        IFNULL(fridges.gebra, "") AS gebra,
-        IFNULL(fridges.local, "") AS local,
-        DATE_FORMAT(refills.finished_at, "%d/%m/%Y %H:%i") AS refill_at,
-        DATE_FORMAT(refills.finished_at, "%d/%m") AS refill_at_only_date,
-        IFNULL(deliveryman.name, "") AS deliveryman,
-        IFNULL(refills.name, "") AS delivery_escort,
-        IFNULL(piclists.nf, "") AS nf,
-        IFNULL(syndic.email, "") AS syndic_email
-      FROM
-        refills 
-      LEFT JOIN
-        fridges
-      ON
-        fridges.id = refills.fridge_id
-      LEFT JOIN
-        users AS syndic
-      ON
-        syndic.id = fridges.syndic_id
-      LEFT JOIN
-        users AS deliveryman
-      ON
-        deliveryman.id = refills.finished_by
-      LEFT JOIN
-        piclists
-      ON
-        piclists.id = refills.piclist_id
-      WHERE
-        refills.id = ${refillDto.refill_id}
+        SELECT
+          refills.id,
+          refills.product_return_done,
+          refills.finished_by,
+          refills.product_return_id,
+          IFNULL(syndic.name, "") AS syndic_name,
+          IFNULL(fridges.gebra, "") AS gebra,
+          IFNULL(fridges.local, "") AS local,
+          DATE_FORMAT(refills.finished_at, "%d/%m/%Y %H:%i") AS refill_at,
+          DATE_FORMAT(refills.finished_at, "%d/%m") AS refill_at_only_date,
+          IFNULL(deliveryman.name, "") AS deliveryman,
+          IFNULL(refills.name, "") AS delivery_escort,
+          IFNULL(piclists.nf, "") AS nf,
+          IFNULL(syndic.email, "") AS syndic_email,
+          fridges.opt_report_refill
+        FROM
+          refills 
+        LEFT JOIN
+          fridges
+        ON
+          fridges.id = refills.fridge_id
+        LEFT JOIN
+          users AS syndic
+        ON
+          syndic.id = fridges.syndic_id
+        LEFT JOIN
+          users AS deliveryman
+        ON
+          deliveryman.id = refills.finished_by
+        LEFT JOIN
+          piclists
+        ON
+          piclists.id = refills.piclist_id
+        WHERE
+          refills.id = ${refillDto.refill_id}
     `);
 
       if (!refillResult || refillResult.length === 0) {
@@ -97,8 +98,24 @@ export class MailService {
       `);
       }
 
+      if (refill.opt_report_refill == 0) {
+        return this.connection.query(`
+          INSERT INTO
+            refill_condo_report_logs
+          VALUES
+            (
+              NULL,
+              ${refillDto.refill_id},
+              200,
+              "Síndico prefere não receber e-mails",
+              "",
+              CURRENT_TIMESTAMP(),
+              CURRENT_TIMESTAMP()
+            )
+        `);
+      }
+
       if (refill.syndic_name == '') {
-        console.log('not finished');
         return this.connection.query(`
         INSERT INTO
           refill_condo_report_logs
@@ -115,8 +132,7 @@ export class MailService {
       `);
       }
 
-      if ((refill.syndic_email = '')) {
-        console.log('not finished');
+      if (refill.syndic_email == '') {
         return this.connection.query(`
         INSERT INTO
           refill_condo_report_logs
@@ -178,11 +194,6 @@ export class MailService {
       ORDER BY
         products.name ASC
     `);
-
-      // piclists = [
-      //   { name: 'teste1', qtd: '01' },
-      //   { name: 'teste2', qtd: '02' },
-      // ];
 
       if (refill.product_return_id) {
         productReturns = await this.connection.query(`
@@ -251,15 +262,19 @@ export class MailService {
 
       const mail = {
         // to: 'alvesroriz@gmail.com',
-        to: 'rhodions@gmail.com',
+        // to: 'rhodions@gmail.com',
         // to: refill.syndic_email,
+        to: '',
         subject: `${gebra} - Resumo de Abastecimento ${refill_at_only_date}`,
         from: 'iCoke - Brasal Refrigerantes<no-reply@brasal.com.br>',
         text: `Abastecimento`,
         html,
       };
 
-      await this.sendgridService.send(mail);
+      // console.log({ mail });
+
+      const result = await this.sendgridService.send(mail);
+      // console.log(result);
       return this.connection.query(`
         INSERT INTO
           refill_condo_report_logs
@@ -275,6 +290,7 @@ export class MailService {
           )
       `);
     } catch (error) {
+      console.log({ error });
       return this.connection.query(`
         INSERT INTO
           refill_condo_report_logs
@@ -282,9 +298,9 @@ export class MailService {
           (
             NULL,
             ${refillDto.refill_id},
-            200,
-            "E-mail enviado com sucesso",
-            "${JSON.stringify(error)}",
+            400,
+            "${error.message}",
+            "",
             CURRENT_TIMESTAMP(),
             CURRENT_TIMESTAMP()
           )
