@@ -262,9 +262,9 @@ export class MailService {
 
       const mail = {
         // to: 'alvesroriz@gmail.com',
+        to: 'groriz@brasal.com.br',
         // to: 'rhodions@gmail.com',
         // to: refill.syndic_email,
-        to: '',
         subject: `${gebra} - Resumo de Abastecimento ${refill_at_only_date}`,
         from: 'iCoke - Brasal Refrigerantes<no-reply@brasal.com.br>',
         text: `Abastecimento`,
