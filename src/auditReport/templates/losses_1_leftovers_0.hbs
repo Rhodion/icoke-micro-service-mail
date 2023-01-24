@@ -49,13 +49,6 @@
                 <p
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
                 >
-                  Confirmação de abastecimento realizado na geladeira da
-                  Coca-Cola.
-                </p>
-
-                <p
-                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
-                >
                   <b style='box-sizing:border-box'>{{gebra}} – {{local}}</b>
                   <br />
                   Data do abastecimento:
@@ -74,8 +67,9 @@
                 <p
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
                 >
-                  <b style='box-sizing:border-box'>Produtos abastecidos na
-                    Geladeira:</b>
+                  Foi identificada a
+                  <b style='box-sizing:border-box'>FALTA</b>
+                  dos produtos listados na geladeira:
                 </p>
 
                 <table
@@ -111,10 +105,16 @@
                               >
                                 Quantidade
                               </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Valor
+                              </td>
                             </tr>
                           </thead>
                           <tbody>
-                            {{#each piclists}}
+                            {{#each losses}}
                               <tr>
                                 <td
                                   align='left'
@@ -128,6 +128,12 @@
                                 >
                                   {{this.qtd}}
                                 </td>
+                                <td
+                                  align='center'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.amount}}
+                                </td>
                               </tr>
                             {{/each}}
                           </tbody>
@@ -137,18 +143,86 @@
                   </tbody>
                 </table>
 
+                <table
+                  align='center'
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  role='presentation'
+                  style='box-sizing:border-box;margin:30px auto;padding:0;text-align:center;width:100%'
+                >
+                  <tbody>
+                    <tr>
+                      <td align='center' style='box-sizing:border-box'>
+                        <table
+                          width='100%'
+                          border='0'
+                          cellpadding='0'
+                          cellspacing='0'
+                          role='presentation'
+                          style='box-sizing:border-box'
+                        >
+                          <tbody>
+                            <tr>
+                              <td align='center' style='box-sizing:border-box'>
+                                <table
+                                  border='0'
+                                  cellpadding='0'
+                                  cellspacing='0'
+                                  role='presentation'
+                                  style='box-sizing:border-box'
+                                >
+                                  <tbody>
+                                    <tr>
+                                      <td style='box-sizing:border-box'><a
+                                          href='{{orderReportUrl}}'
+                                          rel='noopener'
+                                          style='box-sizing:border-box;border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748'
+                                          target='_blank'
+                                          data-saferedirecturl='{{orderReportUrl}}'
+                                        >Relatório de vendas dessa geladeira dos
+                                          últimos 15 dias</a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:justify'
+                >
+                  Caso seja identificado alguma irregularidade, o consumidor
+                  poderá realizar uma nova compra na geladeira para ajustar o
+                  estoque e recompor o custo de perda ao condomínio que será
+                  identificado na próxima pesquisa e lançado como sobra no
+                  resumo de auditoria e Inventário.
+                </p>
+
                 <p
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
                 >
-                  Central de Atendimento<br />
-                  <b
-                    style='box-sizing:border-box;font-size:20px;'
-                  >0800-61-5000</b>
+                  Abraços,
+                  <br />Brasal Refrigerantes
                   <br />
-                  Segunda à Sexta de 07:30 às 19:00<br />
-                  Sábados: 08:00 às 14:00<br />
-                  exceto domingos e feriados
+                  <br />Por favor, pedimos que você não responda esse e-mail,
+                  pois se trata de um envio automático e não é possível dar
+                  continuidade no seu atendimento por aqui.
+                  <br />
+                  <br />Caso ainda tenha dúvidas, fale com a nossa Central de
+                  Atendimento por meio do número 0800 61 5000.
+                  <br />Atendimentos são realizados de:
+                  <br />Segunda à Sexta: de 7:30 às 19:00
+                  <br />Sábados: de 8:00 às 14:00
+                  <br />exceto domingos e feriados
                 </p>
+
                 <table
                   width='100%'
                   cellpadding='0'
@@ -170,7 +244,7 @@
                               href='https://icoke.brasaldigital.com.br'
                               style='box-sizing:border-box;color:#3869d4'
                               target='_blank'
-                              data-saferedirecturl='https://www.google.com/url?q=https://desligamentofinanceiro.brasal.com.br/login&amp;source=gmail&amp;ust=1674324574345000&amp;usg=AOvVaw2E88akP0KuHgGPMwN3OMvp'
+                              data-saferedirecturl='https://icoke.brasaldigital.com.br'
                             >clique aqui</a></span></p>
                       </td>
                     </tr>
@@ -178,7 +252,7 @@
                 </table>
               </td>
             </tr>
-            <tr>
+            {{! <tr>
               <td style='box-sizing:border-box'><img
                   alt='DesligamentoFinanceiro'
                   style='box-sizing:border-box;max-width:100%;width:570px'
@@ -203,7 +277,7 @@
                         class='aSK J-J5-Ji aYr'
                       ></div></div></div></div>
               </td>
-            </tr>
+            </tr> }}
           </tbody>
         </table>
       </td>

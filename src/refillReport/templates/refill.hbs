@@ -140,7 +140,7 @@
                 <p
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:justify'
                 >
-                  Durante o abastecimento, foi retirado da geladeiras os
+                  Durante o abastecimento, foram retirados da geladeira os
                   produtos listados, por estarem próximo do vencimento e/ou com
                   avarias ou poder não caber dentro da geladeira, no limite
                   estabelecido para cada produto/marca/sabor.
@@ -150,7 +150,7 @@
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:justify'
                 >
                   Esses produtos serão reabastecidos nos próximos abastecimento,
-                  a depender da disponibilidade no estoque da Brasal. A retira
+                  a depender da disponibilidade no estoque da Brasal. A retirada
                   desses produtos não são lançados como perdas.
                 </p>
 
@@ -187,12 +187,6 @@
                               >
                                 Quantidade
                               </td>
-                              <td
-                                align='center'
-                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
-                              >
-                                Valor
-                              </td>
                             </tr>
                           </thead>
                           <tbody>
@@ -210,12 +204,6 @@
                                 >
                                   {{this.qtd}}
                                 </td>
-                                <td
-                                  align='center'
-                                  style='box-sizing:border-box;font-size:16px;'
-                                >
-                                  {{this.amount}}
-                                </td>
                               </tr>
                             {{/each}}
                           </tbody>
@@ -224,8 +212,25 @@
                     </tr>
                   </tbody>
                 </table>
-
                 <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
+                >
+                  Abraços,
+                  <br />Brasal Refrigerantes
+                  <br />
+                  <br />Por favor, pedimos que você não responda esse e-mail,
+                  pois se trata de um envio automático e não é possível dar
+                  continuidade no seu atendimento por aqui.
+                  <br />
+                  <br />Caso ainda tenha dúvidas, fale com a nossa Central de
+                  Atendimento por meio do número 0800 61 5000.
+                  <br />Atendimentos são realizados de:
+                  <br />Segunda à Sexta: de 7:30 às 19:00
+                  <br />Sábados: de 8:00 às 14:00
+                  <br />exceto domingos e feriados
+                </p>
+
+                {{! <p
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
                 >
                   Central de Atendimento<br />
@@ -236,7 +241,7 @@
                   Segunda à Sexta de 07:30 às 19:00<br />
                   Sábados: 08:00 às 14:00<br />
                   exceto domingos e feriados
-                </p>
+                </p> }}
                 <table
                   width='100%'
                   cellpadding='0'
@@ -266,7 +271,7 @@
                 </table>
               </td>
             </tr>
-            <tr>
+            {{! <tr>
               <td style='box-sizing:border-box'><img
                   alt='DesligamentoFinanceiro'
                   style='box-sizing:border-box;max-width:100%;width:570px'
@@ -291,7 +296,7 @@
                         class='aSK J-J5-Ji aYr'
                       ></div></div></div></div>
               </td>
-            </tr>
+            </tr> }}
           </tbody>
         </table>
       </td>

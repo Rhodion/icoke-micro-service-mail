@@ -197,47 +197,64 @@ export class MailService {
 
       if (refill.product_return_id) {
         productReturns = await this.connection.query(`
-        SELECT
-          products.name AS name,
-          product_return_items.qtd AS qtd,
-          (
-            SELECT
-              CONCAT(
-                "R$ ", 
-                FORMAT(
-                  IFNULL(
-                    IF(products.only_pack = 0, sap_products.unit_price, sap_products.final_price), 
-                    0
-                  ), 2, "pt_BR"
-                )
-              )
-            FROM
-              sap_products
-            WHERE
-              sku = LPAD("3171", 18, "0")
-            AND
-              sap_products.table = 787
-            ORDER BY
-              id DESC
-            LIMIT 1
-          ) AS amount
-        FROM
-          refills 
-        JOIN
-          product_return_items
-        ON
-          product_return_items.id = refills.product_return_id
-        JOIN
-          products
-        ON
-          products.id = product_return_items.product_id
-        JOIN
-          fridges
-        ON
-          fridges.id = refills.fridge_id
-        WHERE
-          refills.id = ${refillDto.refill_id}
-      `);
+          SELECT
+            products.name AS name,
+            product_return_items.qtd AS qtd
+          FROM
+            refills 
+          JOIN
+            product_return_items
+          ON
+            product_return_items.id = refills.product_return_id
+          JOIN
+            products
+          ON
+            products.id = product_return_items.product_id
+          WHERE
+            refills.id = ${refillDto.refill_id}
+        `);
+        // productReturns = await this.connection.query(`
+        //   SELECT
+        //     products.name AS name,
+        //     product_return_items.qtd AS qtd,
+        //     (
+        //       SELECT
+        //         CONCAT(
+        //           "R$ ",
+        //           FORMAT(
+        //             IFNULL(
+        //               IF(products.only_pack = 0, sap_products.unit_price, sap_products.final_price),
+        //               0
+        //             ), 2, "pt_BR"
+        //           )
+        //         )
+        //       FROM
+        //         sap_products
+        //       WHERE
+        //         sku = LPAD("3171", 18, "0")
+        //       AND
+        //         sap_products.table = 787
+        //       ORDER BY
+        //         id DESC
+        //       LIMIT 1
+        //     ) AS amount
+        //   FROM
+        //     refills
+        //   JOIN
+        //     product_return_items
+        //   ON
+        //     product_return_items.id = refills.product_return_id
+        //   JOIN
+        //     products
+        //   ON
+        //     products.id = product_return_items.product_id
+        //   JOIN
+        //     fridges
+        //   ON
+        //     fridges.id = refills.fridge_id
+        //   WHERE
+        //     refills.id = ${refillDto.refill_id}
+        // `);
       }
 
       const templateFile =
@@ -262,8 +279,9 @@ export class MailService {
 
       const mail = {
         // to: 'alvesroriz@gmail.com',
-        to: 'groriz@brasal.com.br',
-        // to: 'rhodions@gmail.com',
+        // to: 'groriz@brasal.com.br',
+        // to: 'incsilva@brasal.com.br',
+        to: 'rhodions@gmail.com',
         // to: refill.syndic_email,
         subject: `${gebra} - Resumo de Abastecimento ${refill_at_only_date}`,
         from: 'iCoke - Brasal Refrigerantes<no-reply@brasal.com.br>',

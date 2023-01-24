@@ -1,0 +1,391 @@
+<table
+  width='100%'
+  cellpadding='0'
+  cellspacing='0'
+  role='presentation'
+  style='box-sizing:border-box;margin:0;padding:0;width:100%'
+>
+  <tbody>
+    <tr>
+      <td style='box-sizing:border-box;padding:25px 0;text-align:center'>
+        <a
+          href='https://api-rhevolution.brasal.com.br'
+          style='box-sizing:border-box;color:#3d4852;font-size:19px;font-weight:bold;text-decoration:none;display:inline-block'
+          target='_blank'
+          data-saferedirecturl='https://www.google.com/url?q=https://api-rhevolution.brasal.com.br&amp;source=gmail&amp;ust=1674324574344000&amp;usg=AOvVaw1H5yOGkK0Jxe06JM8n986t'
+        >
+          <img
+            alt='Brasal Refrigerantes'
+            style='box-sizing:border-box;max-width:100%;border:none;width:256px;height:63px'
+            src='http://icoke-brasil.s3.amazonaws.com/files/logo_h.png'
+            class='CToWUd'
+            data-bit='iit'
+          />
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td
+        width='100%'
+        cellpadding='0'
+        cellspacing='0'
+        style='box-sizing:border-box;background-color:#edf2f7;border-bottom:1px solid #edf2f7;border-top:1px solid #edf2f7;margin:0;padding:0;width:100%'
+      >
+        <table
+          align='center'
+          width='570'
+          cellpadding='0'
+          cellspacing='0'
+          role='presentation'
+          style='box-sizing:border-box;background-color:#ffffff;border-color:#e8e5ef;border-radius:2px;border-width:1px;margin:0 auto;padding:0;width:570px'
+        >
+          <tbody>
+            <tr>
+              <td style='box-sizing:border-box;max-width:100vw;padding:32px'>
+                <h1
+                  style='box-sizing:border-box;color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left'
+                >Olá {{syndic_name}},</h1>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
+                >
+                  <b style='box-sizing:border-box'>{{gebra}} – {{local}}</b>
+                  <br />
+                  Data do abastecimento:
+                  {{refill_at}}
+                  <br />
+                  Entregador:
+                  {{deliveryman}}
+                  <br />
+                  Nome de quem acompanhou:
+                  {{delivery_escort}}
+                  <br />
+                  Nota Fiscal:
+                  {{nf}}
+                </p>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
+                >
+                  Foi identificada a
+                  <b style='box-sizing:border-box'>FALTA</b>
+                  dos produtos listados na geladeira:
+                </p>
+
+                <table
+                  align='center'
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  role='presentation'
+                  style='box-sizing:border-box;margin:auto auto 30px auto;padding:0;text-align:center;width:100%'
+                >
+                  <tbody>
+                    <tr>
+                      <td align='center' style='box-sizing:border-box'>
+                        <table
+                          width='100%'
+                          border='0'
+                          cellpadding='0'
+                          cellspacing='0'
+                          role='presentation'
+                          style='box-sizing:border-box'
+                        >
+                          <thead>
+                            <tr>
+                              <td
+                                align='left'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Produto
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Quantidade
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Valor
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each losses}}
+                              <tr>
+                                <td
+                                  align='left'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.name}}
+                                </td>
+                                <td
+                                  align='center'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.qtd}}
+                                </td>
+                                <td
+                                  align='center'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.amount}}
+                                </td>
+                              </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
+                >
+                  Foi identificada a
+                  <b style='box-sizing:border-box'>SOBRA</b>
+                  dos produtos listados na geladeira:
+                </p>
+
+                <table
+                  align='center'
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  role='presentation'
+                  style='box-sizing:border-box;margin:auto auto 30px auto;padding:0;text-align:center;width:100%'
+                >
+                  <tbody>
+                    <tr>
+                      <td align='center' style='box-sizing:border-box'>
+                        <table
+                          width='100%'
+                          border='0'
+                          cellpadding='0'
+                          cellspacing='0'
+                          role='presentation'
+                          style='box-sizing:border-box'
+                        >
+                          <thead>
+                            <tr>
+                              <td
+                                align='left'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Produto
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Quantidade
+                              </td>
+                              <td
+                                align='center'
+                                style='box-sizing:border-box;font-size:16px;line-height:1.5em;font-weight:bold'
+                              >
+                                Valor
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each leftovers}}
+                              <tr>
+                                <td
+                                  align='left'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.name}}
+                                </td>
+                                <td
+                                  align='center'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.qtd}}
+                                </td>
+                                <td
+                                  align='center'
+                                  style='box-sizing:border-box;font-size:16px;'
+                                >
+                                  {{this.amount}}
+                                </td>
+                              </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table
+                  align='center'
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  role='presentation'
+                  style='box-sizing:border-box;margin:30px auto;padding:0;text-align:center;width:100%'
+                >
+                  <tbody>
+                    <tr>
+                      <td align='center' style='box-sizing:border-box'>
+                        <table
+                          width='100%'
+                          border='0'
+                          cellpadding='0'
+                          cellspacing='0'
+                          role='presentation'
+                          style='box-sizing:border-box'
+                        >
+                          <tbody>
+                            <tr>
+                              <td align='center' style='box-sizing:border-box'>
+                                <table
+                                  border='0'
+                                  cellpadding='0'
+                                  cellspacing='0'
+                                  role='presentation'
+                                  style='box-sizing:border-box'
+                                >
+                                  <tbody>
+                                    <tr>
+                                      <td style='box-sizing:border-box'><a
+                                          href='{{orderReportUrl}}'
+                                          rel='noopener'
+                                          style='box-sizing:border-box;border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748'
+                                          target='_blank'
+                                          data-saferedirecturl='{{orderReportUrl}}'
+                                        >Relatório de vendas dessa geladeira dos
+                                          últimos 15 dias</a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:justify'
+                >
+                  Caso seja identificado alguma irregularidade, o consumidor
+                  poderá realizar uma nova compra na geladeira para ajustar o
+                  estoque e recompor o custo de perda ao condomínio que será
+                  identificado na próxima pesquisa e lançado como sobra no
+                  resumo de auditoria e Inventário.
+                </p>
+
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
+                >
+                  Abraços,
+                  <br />Brasal Refrigerantes
+                  <br />
+                  <br />Por favor, pedimos que você não responda esse e-mail,
+                  pois se trata de um envio automático e não é possível dar
+                  continuidade no seu atendimento por aqui.
+                  <br />
+                  <br />Caso ainda tenha dúvidas, fale com a nossa Central de
+                  Atendimento por meio do número 0800 61 5000.
+                  <br />Atendimentos são realizados de:
+                  <br />Segunda à Sexta: de 7:30 às 19:00
+                  <br />Sábados: de 8:00 às 14:00
+                  <br />exceto domingos e feriados
+                </p>
+
+                <table
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  role='presentation'
+                  style='box-sizing:border-box;border-top:1px solid #e8e5ef;margin-top:25px;padding-top:25px'
+                >
+                  <tbody>
+                    <tr>
+                      <td style='box-sizing:border-box'>
+                        <p
+                          style='box-sizing:border-box;line-height:1.5em;margin-top:0;text-align:left;font-size:14px'
+                        >
+                          Deseja parar de receber esse comunicado de
+                          abastecimento,
+                          <span
+                            style='box-sizing:border-box;word-break:break-all'
+                          ><a
+                              href='https://icoke.brasaldigital.com.br'
+                              style='box-sizing:border-box;color:#3869d4'
+                              target='_blank'
+                              data-saferedirecturl='https://icoke.brasaldigital.com.br'
+                            >clique aqui</a></span></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            {{! <tr>
+              <td style='box-sizing:border-box'><img
+                  alt='DesligamentoFinanceiro'
+                  style='box-sizing:border-box;max-width:100%;width:570px'
+                  src='https://ci6.googleusercontent.com/proxy/HfHFNQySGD3JQuGKAetaAC4haZQVTS8ct6LOa6vFsvReeJO6G9q8oMTpxjMKy6V9jihREk5MWZGDExDmxYKcQkoMut_AsQquwdDLpvDMFSQtxuvvOfdenCiHlLebi-J2mVnk1QZ3=s0-d-e1-ft#https://www.brasal.com.br/arquivos/incorporacoes/rodape-correspondente-bancario.png'
+                  class='CToWUd a6T'
+                  data-bit='iit'
+                  tabindex='0'
+                /><div
+                  class='a6S'
+                  dir='ltr'
+                  style='opacity: 0.01; left: 635px; top: 1009.2px;'
+                ><div
+                    id=':1h2'
+                    class='T-I J-J5-Ji aQv T-I-ax7 L3 a5q'
+                    role='button'
+                    tabindex='0'
+                    aria-label='Fazer o download do anexo '
+                    jslog='91252; u014N:cOuCgd,Kr2w4b,xr6bB'
+                    data-tooltip-class='a1V'
+                    data-tooltip='Fazer o download'
+                  ><div class='akn'><div
+                        class='aSK J-J5-Ji aYr'
+                      ></div></div></div></div>
+              </td>
+            </tr> }}
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style='box-sizing:border-box'>
+        <table
+          align='center'
+          width='570'
+          cellpadding='0'
+          cellspacing='0'
+          role='presentation'
+          style='box-sizing:border-box;margin:0 auto;padding:0;text-align:center;width:570px'
+        >
+          <tbody>
+            <tr>
+              <td
+                align='center'
+                style='box-sizing:border-box;max-width:100vw;padding:32px'
+              >
+                <p
+                  style='box-sizing:border-box;line-height:1.5em;margin-top:0;color:#b0adc5;font-size:12px;text-align:center'
+                >
+                  © 2023 iCoke. Todos os direitos reservados.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

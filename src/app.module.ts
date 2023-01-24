@@ -1,4 +1,5 @@
-import { RefillModule } from './refill/mail.module';
+import { AuditReportModule } from './auditReport/mail.module';
+import { RefillReportModule } from './refillReport/mail.module';
 import { ValidateMailModule } from './validateMail/mail.module';
 import { RecoverPassModule } from './recoverPass/mail.module';
 import { AuditSapLog } from './entities/audit-sap-log.entity';
@@ -46,7 +47,8 @@ import { SendgridService } from './providers/sendgrid/sendgrid.service';
     }),
     RecoverPassModule,
     ValidateMailModule,
-    RefillModule,
+    RefillReportModule,
+    AuditReportModule,
   ],
   controllers: [],
   providers: [

@@ -11,4 +11,4 @@ import { MailService } from './mail.service';
   controllers: [RecoverPassController],
   providers: [MailService, SendgridService],
 })
-export class RefillModule {}
+export class AuditReportModule {}
