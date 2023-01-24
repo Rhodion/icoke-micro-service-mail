@@ -221,8 +221,29 @@ export class MailService {
           products.name ASC
       `);
 
-      // losses = [];
-      // leftovers = [];
+      const totalResult = await this.connection.query(`
+        SELECT
+          CONCAT(
+              "R$ ",
+              FORMAT(
+                IFNULL(
+                  SUM(audit_products.price * audit_products.stock_diff),
+                  0
+                ), 2, "pt_BR"
+              )
+            ) AS amount
+          FROM
+            audit_products  
+          WHERE
+            audit_id = ${audit.audit_id}
+          GROUP BY
+            audit_id
+      `);
+      const total = totalResult[0].amount || '';
+      // console.log({ total });
+
+      losses = [];
+      leftovers = [];
 
       const templateFile = `losses_${losses.length > 0 ? 1 : 0}_leftovers_${
         leftovers.length > 0 ? 1 : 0
@@ -252,6 +273,7 @@ export class MailService {
         losses,
         leftovers,
         orderReportUrl,
+        total,
       });
 
       // const url =
@@ -271,12 +293,12 @@ export class MailService {
       const mail = {
         // to: 'alvesroriz@gmail.com',
         // to: 'groriz@brasal.com.br',
-        // to: 'incsilva@brasal.com.br',
-        to: 'rhodions@gmail.com',
+        to: 'incsilva@brasal.com.br',
+        // to: 'rhodions@gmail.com',
         // to: audit.syndic_email,
-        subject: `${gebra} - Resumo de Auditoria & Inventário`,
+        subject: `${gebra} - Resumo do Inventário`,
         from: 'iCoke - Brasal Refrigerantes<no-reply@brasal.com.br>',
-        text: `Resumo de Auditoria & Inventário`,
+        text: `Resumo do Inventário`,
         html,
       };
 

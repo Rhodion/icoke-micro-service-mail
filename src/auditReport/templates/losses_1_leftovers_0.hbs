@@ -51,24 +51,21 @@
                 >
                   <b style='box-sizing:border-box'>{{gebra}} – {{local}}</b>
                   <br />
-                  Data do abastecimento:
+                  Data da verificação:
                   {{refill_at}}
                   <br />
-                  Entregador:
+                  Pesquisador:
                   {{deliveryman}}
                   <br />
                   Nome de quem acompanhou:
                   {{delivery_escort}}
-                  <br />
-                  Nota Fiscal:
-                  {{nf}}
                 </p>
 
                 <p
                   style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
                 >
                   Foi identificada a
-                  <b style='box-sizing:border-box'>FALTA</b>
+                  <b style='box-sizing:border-box; color: red'>FALTA</b>
                   dos produtos listados na geladeira:
                 </p>
 
@@ -143,6 +140,12 @@
                   </tbody>
                 </table>
 
+                <p
+                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:center'
+                >
+                  <b>Saldo final da auditoria do dia: {{total}}</b>
+                </p>
+
                 <table
                   align='center'
                   width='100%'
@@ -177,11 +180,12 @@
                                       <td style='box-sizing:border-box'><a
                                           href='{{orderReportUrl}}'
                                           rel='noopener'
-                                          style='box-sizing:border-box;border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748'
+                                          style='text-align:center;box-sizing:border-box;border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748'
                                           target='_blank'
                                           data-saferedirecturl='{{orderReportUrl}}'
-                                        >Relatório de vendas dessa geladeira dos
-                                          últimos 15 dias</a>
+                                        >Clique aqui para baixar o relatório de
+                                          vendas dessa<br />
+                                          geladeira dos últimos 15 dias</a>
                                       </td>
                                     </tr>
                                   </tbody>
@@ -200,23 +204,26 @@
                 >
                   Caso seja identificado alguma irregularidade, o consumidor
                   poderá realizar uma nova compra na geladeira para ajustar o
-                  estoque e recompor o custo de perda ao condomínio que será
+                  estoque e recompor o custo de perda da geladeira que será
                   identificado na próxima pesquisa e lançado como sobra no
-                  resumo de auditoria e Inventário.
+                  resumo do inventário.
                 </p>
 
                 <p
-                  style='box-sizing:border-box;font-size:16px;line-height:1.5em;margin-top:0;text-align:left'
+                  style='color:#999;box-sizing:border-box;font-size:14px;line-height:1.5em;margin-top:0;text-align:left'
                 >
-                  Abraços,
-                  <br />Brasal Refrigerantes
-                  <br />
                   <br />Por favor, pedimos que você não responda esse e-mail,
                   pois se trata de um envio automático e não é possível dar
                   continuidade no seu atendimento por aqui.
-                  <br />
+                </p>
+                <p
+                  style='color:#999;box-sizing:border-box;font-size:14px;line-height:1.5em;margin-top:0;text-align:left'
+                >
                   <br />Caso ainda tenha dúvidas, fale com a nossa Central de
-                  Atendimento por meio do número 0800 61 5000.
+                  Atendimento:<br />
+                  <b
+                    style='box-sizing:border-box;font-size:16px;'
+                  >0800-61-5000</b>
                   <br />Atendimentos são realizados de:
                   <br />Segunda à Sexta: de 7:30 às 19:00
                   <br />Sábados: de 8:00 às 14:00
@@ -234,10 +241,10 @@
                     <tr>
                       <td style='box-sizing:border-box'>
                         <p
-                          style='box-sizing:border-box;line-height:1.5em;margin-top:0;text-align:left;font-size:14px'
+                          style='box-sizing:border-box;line-height:1.5em;margin-top:0;text-align:left;font-size:12px'
                         >
-                          Deseja parar de receber esse comunicado de
-                          abastecimento,
+                          Se não deseja mais receber nossos comunicados de
+                          inventário,
                           <span
                             style='box-sizing:border-box;word-break:break-all'
                           ><a
